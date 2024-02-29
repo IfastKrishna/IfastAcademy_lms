@@ -10,6 +10,7 @@ import UnauthorizedPermission from "../Errors/UnAuthorized.jsx";
 import Profile from "../Users/Profile.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import Settings from "../Users/Settings/Settings.jsx";
+import { Enquires, NewEnquire } from "../../components/index.js";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,7 +28,29 @@ const router = createBrowserRouter(
       <Route
         path="profile"
         element={
-          <ProtectedRoute children={<Profile />} roles={["user", "admin"]} />
+          <ProtectedRoute
+            children={<Profile />}
+            roles={["user", "admin", "instuctor"]}
+          />
+        }
+      />
+      <Route
+        path="enquires"
+        element={
+          <ProtectedRoute
+            children={<Enquires />}
+            roles={["user", "admin", "instuctor"]}
+          />
+        }
+      />
+
+      <Route
+        path="enquires/new-enquire"
+        element={
+          <ProtectedRoute
+            children={<NewEnquire />}
+            roles={["user", "admin", "instuctor"]}
+          />
         }
       />
       <Route path="settings" element={<Settings />} />

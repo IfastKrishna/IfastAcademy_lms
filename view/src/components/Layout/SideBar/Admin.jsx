@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logout from "../Logout";
 import {
   Card,
@@ -20,10 +20,12 @@ import {
   Cog6ToothIcon,
   InboxIcon,
   PowerIcon,
+  UserGroupIcon,
 } from "@heroicons/react/24/solid";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 
 export default function AdminSidebar({ isSidebarOpen }) {
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(0);
 
   const handleOpen = (value) => {
@@ -72,19 +74,13 @@ export default function AdminSidebar({ isSidebarOpen }) {
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                Analytics
+                Accounts
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                Reporting
-              </ListItem>
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
-                Projects
+                Counselor
               </ListItem>
             </List>
           </AccordionBody>
@@ -106,26 +102,38 @@ export default function AdminSidebar({ isSidebarOpen }) {
               className="border-b-0 p-3"
             >
               <ListItemPrefix>
-                <ShoppingBagIcon className="h-5 w-5" />
+                <UserGroupIcon className="h-5 w-5" />
               </ListItemPrefix>
               <Typography color="blue-gray" className="mr-auto font-normal">
-                E-Commerce
+                Student Manager
               </Typography>
             </AccordionHeader>
           </ListItem>
           <AccordionBody className="py-1">
             <List className="p-0">
-              <ListItem>
+              <ListItem onClick={() => navigate("/enquires")}>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                Orders
+                Enquire
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                Products
+                Admission
+              </ListItem>
+              <ListItem>
+                <ListItemPrefix>
+                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                </ListItemPrefix>
+                Assign Batch
+              </ListItem>
+              <ListItem>
+                <ListItemPrefix>
+                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                </ListItemPrefix>
+                Student Syllabus Progress
               </ListItem>
             </List>
           </AccordionBody>
@@ -145,13 +153,13 @@ export default function AdminSidebar({ isSidebarOpen }) {
             />
           </ListItemSuffix>
         </ListItem>
-        <ListItem>
+        <ListItem onClick={() => navigate("/profile")}>
           <ListItemPrefix>
             <UserCircleIcon className="h-5 w-5" />
           </ListItemPrefix>
           Profile
         </ListItem>
-        <ListItem>
+        <ListItem onClick={() => navigate("/settings")}>
           <ListItemPrefix>
             <Cog6ToothIcon className="h-5 w-5" />
           </ListItemPrefix>
