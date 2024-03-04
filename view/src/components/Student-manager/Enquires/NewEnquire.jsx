@@ -48,39 +48,46 @@ function NewEnquire() {
           </TabsHeader>
           <TabsBody className="overflow-auto">
             <form>
-              <TabPanel value={1}>
-                <div className=" grid  grid-cols-2 gap-3">
-                  <Input label="First Name" />
-                  <Input label="Middle Name" />
-                  <Input label="Last Name" />
+              <TabPanel value={1} className="grid grid-cols-2 gap-3">
+                <Input label="First Name" />
+                <Input label="Middle Name" />
+                <Input label="Last Name" />
+                <div>
                   <Select options={gender} placeholder="Gender" />
-                  <Input label="Collage/School" />
-                  <Input label="Qualification" />
-                  <Input label="Aadhar No" type="tell" />
-                  <Input label="Birth Date" type="date" />
                 </div>
+                <Input label="Collage/School" />
+                <Input label="Qualification" />
+                <Input label="Aadhar No" type="tell" />
+                <Input label="Birth Date" type="date" />
               </TabPanel>
-              <TabPanel value={2}>
-                <div className=" grid  grid-cols-2 gap-3">
-                  <Input label="Primary Mobile No" />
-                  <Input label="Secondry Mobile No" />
-                  <Input label="Primary Email" />
-                  <Input label="Secondry Email" />
-                  <Textarea label="Current Address" />
-                  <Textarea label="Permament Address" />
-                  <Input label="Pincode" type="tell" />
-                  <Input label="Pincode" type="tell" />
+              <TabPanel
+                value={2}
+                className="grid grid-cols-2 gap-3 overflow-auto"
+              >
+                <Input label="Primary Mobile No" />
+                <Input label="Secondry Mobile No" />
+                <Input label="Primary Email" />
+                <Input label="Secondry Email" />
+                <Textarea label="Current Address" />
+                <Textarea label="Permament Address" />
+                <Input label="Pincode" type="tell" />
+                <Input label="Pincode" type="tell" />
+              </TabPanel>
+              <TabPanel
+                value={3}
+                className="grid grid-cols-2 gap-3 overflow-auto"
+              >
+                <div>
+                  <Select
+                    options={courseList}
+                    name="course"
+                    isMulti
+                    placeholder="Courses"
+                    className="mb-3 rounded-md"
+                  />
                 </div>
-              </TabPanel>
-              <TabPanel value={3}>
-                <Select
-                  options={courseList}
-                  name="course"
-                  isMulti
-                  placeholder="Courses"
-                  className="mb-3 rounded-md"
-                />
-                <div className=" grid  grid-cols-2 gap-3">
+
+                <div>
                   <Select
                     options={courseList}
                     name="Package"
@@ -88,24 +95,31 @@ function NewEnquire() {
                     isMulti
                     className="mb-3 rounded-md"
                   />
+                </div>
+                <div>
                   <Select
                     options={courseList}
                     placeholder="Requires Demo Lacture"
                     name="requires_demo_lacture"
                     className="mb-3 rounded-md"
                   />
+                </div>
+                <div>
                   <Select
                     options={courseList}
                     name="insterestLevel"
                     placeholder="Insterest Level"
                     className="mb-3 rounded-md"
                   />
-                  <Input label="Next follow-Up Date" type="date" />
-                  <Textarea label="Follow-Up Details" />
                 </div>
+                <Input label="Next follow-Up Date" type="date" />
+                <Textarea label="Follow-Up Details" />
               </TabPanel>
-              <TabPanel value={4}>
-                <div className=" grid  grid-cols-2 gap-3">
+              <TabPanel
+                value={4}
+                className="grid grid-cols-2 gap-3 overflow-auto"
+              >
+                <div>
                   <Select
                     options={[
                       { value: "youtube", label: "Youtube" },
@@ -114,6 +128,8 @@ function NewEnquire() {
                     ]}
                     placeholder="Lead Source"
                   />
+                </div>
+                <div>
                   <Select
                     options={[
                       { value: "shri ram", label: "Shir Ram" },
@@ -122,9 +138,9 @@ function NewEnquire() {
                     ]}
                     placeholder="Ref Name"
                   />
-                  <Input label="Enquire Date" type="date" />
-                  <Textarea label="Current Address" />
                 </div>
+                <Input label="Enquire Date" type="date" />
+                <Textarea label="Current Address" />
                 <Button type="submit">Submit</Button>
               </TabPanel>
             </form>

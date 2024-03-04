@@ -1,5 +1,6 @@
 import { LoginPage, SingUp, Home } from "../../page/index.js";
 import App from "../../App.jsx";
+
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -10,19 +11,14 @@ import UnauthorizedPermission from "../Errors/UnAuthorized.jsx";
 import Profile from "../Users/Profile.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import Settings from "../Users/Settings/Settings.jsx";
-import { Enquires, NewEnquire } from "../../components/index.js";
+import { Enquires, Followup, NewEnquire } from "../../components/index.js";
+import Counselor from "../Dashbord/Counselor.jsx";
+import Dashbord from "../Dashbord/Dashbord.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route
-        path=""
-        element={
-          <ProtectedRoute>
-            <Profile />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="" element={<Dashbord />} />
       <Route path="login" element={<LoginPage />} />
       <Route path="signup" element={<SingUp />} />
       <Route
@@ -50,6 +46,15 @@ const router = createBrowserRouter(
           <ProtectedRoute
             children={<NewEnquire />}
             roles={["user", "admin", "instuctor"]}
+          />
+        }
+      />
+      <Route
+        path="dashbord/counselor"
+        element={
+          <ProtectedRoute
+            children={<Counselor />}
+            roles={["admin", "instuctor"]}
           />
         }
       />

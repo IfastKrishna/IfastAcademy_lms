@@ -6,9 +6,7 @@ import {
   Typography,
   Chip,
   CardFooter,
-  Avatar,
   IconButton,
-  Tooltip,
   Button,
   Menu,
   MenuHandler,
@@ -38,7 +36,7 @@ function Enquires() {
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
-    setCurrentPage(1); // Reset to first page on search
+    setCurrentPage(1);
   };
 
   const filteredAndSortedRows = TABLE_ROWS.filter((row) => {
@@ -75,17 +73,14 @@ function Enquires() {
       <hr className="mt-2" />
       <CardBody className="overflow-auto">
         <Breadcrumbs>
-          <Link to="/enquires/new-enquire" className="opacity-60">
+          <Link to="new-enquire" className="opacity-60">
             New enquire
           </Link>
-          <Link to="/enquires/todys-followup" className="opacity-60">
+          <Link to="/dashbord/counselor" className="opacity-60">
             Todys Followup
           </Link>
           <Link to="/enquires/import-enquire" className="opacity-60">
             Import Enquires
-          </Link>
-          <Link to="/enquires/download-template" className="opacity-60">
-            Download template
           </Link>
         </Breadcrumbs>
 
@@ -101,7 +96,7 @@ function Enquires() {
               icon={<MagnifyingGlassIcon />}
             />
           </div>
-          <div>
+          <div> 
             Sort by:
             <select
               onChange={(e) => {
