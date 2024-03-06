@@ -45,12 +45,12 @@ function NewEnquire() {
   };
 
   return (
-    <Card className="my-5 mx-5 md:mx-10 p-1 rounded-sm">
+    <Card className="py-4 rounded-sm">
       <Typography className="px-3 py-0 border-l-2 border-l-black text-black">
         COURSE ENQUIRE
       </Typography>
       <hr className="mt-2" />
-      <CardBody className="overflow-auto">
+      <CardBody className="overflow-auto p-1 sm:p-2 md:p-4">
         <FormGroup
           activeSection={activeSection}
           handleTabClick={handleTabClick}
@@ -332,7 +332,7 @@ function NewEnquire() {
               </Button>
             )}
             {activeSection === 3 && (
-              <Button type="submit" color="indigo" loading>
+              <Button type="submit" color="indigo" loading={loading}>
                 Submit
               </Button>
             )}

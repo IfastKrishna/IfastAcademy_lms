@@ -33,7 +33,7 @@ export default function Login() {
       setLoading(false);
       navigate("/");
     } catch (err) {
-      toast.error(err.message);
+      toast.error(err.response.data.message);
       setLoading(false);
     }
   };

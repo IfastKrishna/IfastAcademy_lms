@@ -11,7 +11,8 @@ import UnauthorizedPermission from "../Errors/UnAuthorized.jsx";
 import Profile from "../Users/Profile.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import Settings from "../Users/Settings/Settings.jsx";
-import { Enquires, Followup, NewEnquire } from "../../components/index.js";
+import { Followup, NewEnquire } from "../../components/index.js";
+import Enquires from "../Enquires/Enquires.jsx";
 import Counselor from "../Dashbord/Counselor.jsx";
 import Dashbord from "../Dashbord/Dashbord.jsx";
 

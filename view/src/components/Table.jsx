@@ -41,8 +41,8 @@ function Table({ rows = [], cols = [], Trow, Thead }) {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="w-full overflow-x-auto">
-      <div className="flex justify-between items-center my-4 flex-col lg:flex-row">
+    <div className="w-full">
+      <div className="flex justify-between items-center flex-col my-4 lg:flex-row">
         <div className="mb-4 lg:mb-0">
           <Input
             type="text"
@@ -78,7 +78,7 @@ function Table({ rows = [], cols = [], Trow, Thead }) {
           </Button>
         </div>
       </div>
-      <div className="w-full overflow-x-auto">
+      <div className="max-h-[65vh] overflow-auto">
         <table className="w-full table-auto text-left">
           <thead className="sticky top-0 z-10 bg-white">
             <tr>

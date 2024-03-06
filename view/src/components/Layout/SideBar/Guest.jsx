@@ -14,7 +14,7 @@ import {
   BoltIcon,
 } from "@heroicons/react/24/solid";
 
-export default function GuestSidebar({ isSidebarOpen }) {
+export default function GuestSidebar({ onClose }) {
   const location = useLocation();
   const [navActive, setNavActive] = React.useState("");
 
@@ -27,17 +27,32 @@ export default function GuestSidebar({ isSidebarOpen }) {
   };
 
   return (
-    <Card
-      className={`w-full min-h-screen sticky top-0 rounded-none p-4 shadow-xl ${
-        isSidebarOpen ? "" : "hidden"
-      }`}
-    >
-      <div className="mb-2 px-4 lg:py-4">
+    <Card className={`w-full min-h-screen `}>
+      <div className="mb-2 px-4 lg:py-4 flex items-center justify-between">
         <Typography variant="h5" color="blue-gray" className="cursor-pointer">
-          <Link to="/" onClick={() => handleNavLinkClick("home")}>
-            Guest Sidebar
-          </Link>
+          <Link to="/">Sidebar</Link>
         </Typography>
+        <IconButton
+          className="rounded-full"
+          variant="text"
+          color="blue-gray"
+          onClick={() => onClose(false)}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="h-5 w-5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </IconButton>
       </div>
       <List>
         <NavLink to="/" onClick={() => handleNavLinkClick("home")}>

@@ -4,20 +4,20 @@ import InstuctorSidebar from "./Instuctor";
 import UserSidebar from "./User";
 import { useSelector } from "react-redux";
 
-function Sidebar({ isSidebarOpen }) {
+function Sidebar({ onClose }) {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   if (isAuthenticated && user) {
     if (user.role === "admin") {
-      return <AdminSidebar isSidebarOpen={isSidebarOpen} />;
+      return <AdminSidebar onClose={onClose} />;
     } else if (user.role === "instuctor") {
-      return <InstuctorSidebar isSidebarOpen={isSidebarOpen} />;
+      return <InstuctorSidebar onClose={onClose} />;
     } else if (user.role === "user") {
-      return <UserSidebar isSidebarOpen={isSidebarOpen} />;
+      return <UserSidebar onClose={onClose} />;
     }
   }
 
-  return <GuestSidebar isSidebarOpen={isSidebarOpen} />;
+  return <GuestSidebar onClose={onClose} />;
 }
 
 export default Sidebar;

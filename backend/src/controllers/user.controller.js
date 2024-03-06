@@ -1,5 +1,4 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import {
   removeOnCloudinary,
@@ -15,14 +14,18 @@ const registorUser = asyncHandler(async (req, res) => {
 
   // validate all requreid field
   if ([name, email, phone, password].some((v) => v.trim() === "")) {
-    throw new ApiError(400, "All field area required");
+    return res
+      .status(400)
+      .json({ success: false, message: "All field area required" });
   }
 
   // check email of user allready exist
   const existedUser = await User.findOne({ email });
   console.log(existedUser);
   if (existedUser) {
-    throw new ApiError(409, "User with email allready exists");
+    return res
+      .status(409)
+      .json({ success: false, message: "User with email allready exists" });
   }
 
   // create user object - create entry in db
@@ -43,7 +46,10 @@ const registorUser = asyncHandler(async (req, res) => {
   );
 
   if (!createdUser) {
-    throw new ApiError(500, "Something went wrong while registering");
+    return res.status(200).json({
+      success: false,
+      message: "Something went wrong while registering",
+    });
   }
 
   // send user resposive
@@ -58,7 +64,9 @@ const loginUser = asyncHandler(async (req, res) => {
 
   // validate data
   if (!emailorusername) {
-    throw new ApiError(400, "username or email requried.");
+    return res
+      .status(400)
+      .json({ success: false, message: "username or email requried." });
   }
 
   const user = await User.findOne({
@@ -67,14 +75,18 @@ const loginUser = asyncHandler(async (req, res) => {
 
   // check user exits or not
   if (!user) {
-    throw new ApiError(404, "User do not exist");
+    return res
+      .status(404)
+      .json({ success: false, message: "User do not exist" });
   }
 
   // compare password
   const isCurrectPassoword = await user.isPasswordCurrect(password);
 
   if (!isCurrectPassoword) {
-    throw new ApiError(401, "Invaild user credentials");
+    return res
+      .status(401)
+      .json({ success: false, message: "Invaild user credentials" });
   }
 
   // genrate access token
@@ -112,7 +124,9 @@ const updateCurrentPassword = asyncHandler(async (req, res) => {
   // verify old password
   const isOldPassword = await user.isPasswordCurrect(oldPassword);
   if (!isOldPassword) {
-    throw new ApiError(400, "Invalid old password");
+    return res
+      .status(400)
+      .json({ success: false, message: "Invalid old password" });
   }
 
   // update new password
@@ -137,7 +151,10 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
   } = req.body;
 
   if (!name && !phone && !gender && !dateOfBirth) {
-    throw new ApiError(400, "Name or Phone or Dob or Gender are requried");
+    return res.status(400).json({
+      success: false,
+      message: "Name or Phone or Dob or Gender are requried",
+    });
   }
 
   const user = await User.findByIdAndUpdate(
@@ -167,7 +184,9 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
 
   // check user avtar have or not
   if (!avatarLocalPath) {
-    throw new ApiError(400, "Avatar is missing");
+    return req
+      .status(400)
+      .json({ success: false, message: "Avatar is missing" });
   }
 
   const priviousAvatarUrl = req.user?.avatar;
@@ -180,7 +199,10 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
   );
 
   if (!avatar.url) {
-    throw new ApiError(500, "Something went wrong while uploading avatar");
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong while uploading avatar",
+    });
   }
 
   // update user avatar
@@ -213,7 +235,9 @@ const getUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user?._id).select("-password");
 
   if (!user) {
-    throw new ApiError(404, "User do not existed");
+    return res
+      .status(404)
+      .json({ success: false, message: "User do not existed" });
   }
 
   return res
@@ -224,17 +248,21 @@ const getUserProfile = asyncHandler(async (req, res) => {
 const deleteUser = asyncHandler(async (req, res) => {
   const password = req.body.password;
   if (!password) {
-    throw new ApiError(400, "Password is required");
+    return res
+      .status(400)
+      .json({ success: false, message: "Password is required" });
   }
 
   const user = await User.findById(req.user?._id);
   if (!user) {
-    throw new ApiError(404, "user do not exists");
+    res.status(404).json({ success: false, message: "user do not exists" });
   }
 
   const isCurrectPassword = user.isPasswordCurrect(password);
   if (!isCurrectPassword) {
-    throw new ApiError(400, "Invalid Password");
+    return res
+      .status(400)
+      .json({ success: false, message: "Invalid Password" });
   }
 
   await User.deleteOne({ email: user.email });
