@@ -3,34 +3,44 @@ import {
   Card,
   CardBody,
   Typography,
-  Tabs,
-  Tab,
-  TabsHeader,
-  TabsBody,
-  TabPanel,
-  CardFooter,
   Input,
   Textarea,
   Button,
 } from "@material-tailwind/react";
 import Select from "react-select";
+import { useForm, Controller } from "react-hook-form";
 
-const gender = [
+const genderOptions = [
   { value: "male", label: "Male" },
   { value: "female", label: "Female" },
   { value: "other", label: "Other" },
 ];
+
 function NewEnquire() {
-  const [activeTab, setActiveTab] = useState(1);
-  const [courseList, setCourseList] = useState([
-    { value: "1", label: "Course 1" },
-    { value: "2", label: "Course 2" },
-    { value: "3", label: "Course 3" },
-    { value: "4", label: "Course 4" },
-    { value: "5", label: "Course 5" },
-    { value: "6", label: "Course 6" },
-    { value: "7", label: "Course 7" },
-  ]);
+  const [activeSection, setActiveSection] = useState(0);
+
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm();
+
+  const createNewEnquire = (data) => {
+    console.log(data);
+  };
+
+  const handleTabClick = (index) => {
+    setActiveSection(index);
+  };
+
+  const handleNext = () => {
+    setActiveSection(activeSection + 1);
+  };
+
+  const handlePrev = () => {
+    setActiveSection(activeSection - 1);
+  };
 
   return (
     <Card className="my-5 mx-5 md:mx-10 p-1 rounded-sm">
@@ -39,116 +49,229 @@ function NewEnquire() {
       </Typography>
       <hr className="mt-2" />
       <CardBody className="overflow-auto">
-        <Tabs value={activeTab} onChange={(index) => setActiveTab(index)}>
-          <TabsHeader>
-            <Tab value={1}>PERSONAL DETAILS</Tab>
-            <Tab value={2}>COMMUNICATION DETAILS</Tab>
-            <Tab value={3}>FOLLOW UP DETAILS</Tab>
-            <Tab value={4}>HOW YOU KNOW US?</Tab>
-          </TabsHeader>
-          <TabsBody className="overflow-auto">
-            <form>
-              <TabPanel value={1} className="grid grid-cols-2 gap-3">
-                <Input label="First Name" />
-                <Input label="Middle Name" />
-                <Input label="Last Name" />
-                <div>
-                  <Select options={gender} placeholder="Gender" />
-                </div>
-                <Input label="Collage/School" />
-                <Input label="Qualification" />
-                <Input label="Aadhar No" type="tell" />
-                <Input label="Birth Date" type="date" />
-              </TabPanel>
-              <TabPanel
-                value={2}
-                className="grid grid-cols-2 gap-3 overflow-auto"
-              >
-                <Input label="Primary Mobile No" />
-                <Input label="Secondry Mobile No" />
-                <Input label="Primary Email" />
-                <Input label="Secondry Email" />
-                <Textarea label="Current Address" />
-                <Textarea label="Permament Address" />
-                <Input label="Pincode" type="tell" />
-                <Input label="Pincode" type="tell" />
-              </TabPanel>
-              <TabPanel
-                value={3}
-                className="grid grid-cols-2 gap-3 overflow-auto"
-              >
-                <div>
+        <FormGroup
+          activeSection={activeSection}
+          handleTabClick={handleTabClick}
+        />
+        <form onSubmit={handleSubmit(createNewEnquire)}>
+          {activeSection === 0 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <Controller
+                control={control}
+                name="firstName"
+                render={({ field }) => (
+                  <Input label="First Name" {...field} required />
+                )}
+              />
+              <Controller
+                control={control}
+                name="middleName"
+                render={({ field }) => <Input label="Middle Name" {...field} />}
+              />
+              <Controller
+                control={control}
+                name="lastName"
+                render={({ field }) => <Input label="Last Name" {...field} />}
+              />
+              <Controller
+                control={control}
+                name="gender"
+                render={({ field }) => (
                   <Select
-                    options={courseList}
-                    name="course"
-                    isMulti
-                    placeholder="Courses"
-                    className="mb-3 rounded-md"
+                    options={genderOptions}
+                    placeholder="Gender"
+                    {...field}
+                    required
                   />
-                </div>
-
-                <div>
-                  <Select
-                    options={courseList}
-                    name="Package"
-                    placeholder="Package"
-                    isMulti
-                    className="mb-3 rounded-md"
-                  />
-                </div>
-                <div>
-                  <Select
-                    options={courseList}
-                    placeholder="Requires Demo Lacture"
-                    name="requires_demo_lacture"
-                    className="mb-3 rounded-md"
-                  />
-                </div>
-                <div>
-                  <Select
-                    options={courseList}
-                    name="insterestLevel"
-                    placeholder="Insterest Level"
-                    className="mb-3 rounded-md"
-                  />
-                </div>
-                <Input label="Next follow-Up Date" type="date" />
-                <Textarea label="Follow-Up Details" />
-              </TabPanel>
-              <TabPanel
-                value={4}
-                className="grid grid-cols-2 gap-3 overflow-auto"
-              >
-                <div>
-                  <Select
-                    options={[
-                      { value: "youtube", label: "Youtube" },
-                      { value: "google", label: "Google" },
-                      { value: "facebook", label: "Facebook" },
-                    ]}
-                    placeholder="Lead Source"
-                  />
-                </div>
-                <div>
-                  <Select
-                    options={[
-                      { value: "shri ram", label: "Shir Ram" },
-                      { value: "vishal", label: "Vishal" },
-                      { value: "neeraj", label: "Neeraj" },
-                    ]}
-                    placeholder="Ref Name"
-                  />
-                </div>
-                <Input label="Enquire Date" type="date" />
-                <Textarea label="Current Address" />
-                <Button type="submit">Submit</Button>
-              </TabPanel>
-            </form>
-          </TabsBody>
-        </Tabs>
+                )}
+              />
+              <Controller
+                control={control}
+                name="collegeOrSchool"
+                render={({ field }) => (
+                  <Input label="College/School" {...field} />
+                )}
+              />
+              <Controller
+                control={control}
+                name="qualification"
+                render={({ field }) => (
+                  <Input label="Qualification" {...field} required />
+                )}
+              />
+              <Controller
+                control={control}
+                name="aadharNumber"
+                render={({ field }) => (
+                  <Input label="Aadhar No" type="tel" {...field} />
+                )}
+              />
+              <Controller
+                control={control}
+                name="birthDate"
+                required={true}
+                render={({ field }) => (
+                  <Input label="Birth Date" type="date" {...field} />
+                )}
+              />
+            </div>
+          )}
+          {activeSection === 1 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <Input
+                label="Primary Mobile No"
+                {...register("primaryPhone", { required: true })}
+                required
+              />
+              <Input
+                label="Secondary Mobile No"
+                {...register("secondaryPhone")}
+              />
+              <Input
+                label="Primary Email"
+                required
+                type="email"
+                {...register("primaryEmail")}
+              />
+              <Input label="Secondary Email" {...register("secondaryEmail")} />
+              <Textarea
+                label="Current Address"
+                {...register("currentAddress")}
+              />
+              <Textarea
+                label="Permanent Address"
+                {...register("permanentAddress")}
+              />
+              <Input
+                label="Pincode"
+                type="tel"
+                {...register("currentPincode")}
+              />
+              <Input
+                label="Pincode"
+                type="tel"
+                {...register("permanentPincode")}
+              />
+            </div>
+          )}
+          {activeSection === 2 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <Select
+                options={[
+                  { label: "course1", value: "course1" },
+                  { label: "course2", value: "course2" },
+                ]}
+                {...register("courses")}
+                isMulti
+                placeholder="Courses"
+                className="mb-3 rounded-md"
+              />
+              <Select
+                options={[
+                  { label: "course1", value: "course1" },
+                  { label: "course2", value: "course2" },
+                ]}
+                {...register("packages")}
+                placeholder="Package"
+                isMulti
+                className="mb-3 rounded-md"
+              />
+              <Select
+                options={[
+                  { label: "YES", value: "YES" },
+                  { label: "No", value: "No" },
+                ]}
+                placeholder="Requires Demo Lacture"
+                {...register("requiredDemoLecture")}
+                className="mb-3 rounded-md"
+              />
+              <Select
+                options={[
+                  { label: "course1", value: "course1" },
+                  { label: "course2", value: "course2" },
+                  { label: "course3", value: "course3" },
+                ]}
+                {...register("interestLevel")}
+                placeholder="Interest Level"
+                isMulti
+                className="mb-3 rounded-md"
+              />
+              <Input
+                label="Next follow-Up Date"
+                type="date"
+                {...register("followupDate")}
+              />
+              <Textarea
+                label="Follow-Up Details"
+                {...register("followupDetails")}
+              />
+            </div>
+          )}
+          {activeSection === 3 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <Select
+                options={[
+                  { value: "youtube", label: "Youtube" },
+                  { value: "google", label: "Google" },
+                  { value: "facebook", label: "Facebook" },
+                ]}
+                placeholder="Lead Source"
+                {...register("leadSource")}
+              />
+              <Input type="text" label="Ref Name" {...register("refName")} />
+              <Select
+                options={[{ label: "Krishna", value: "krishna" }]}
+                placeholder="Assign To"
+                {...register("assignTo")}
+              />
+              <Input
+                label="Enquire Date"
+                type="date"
+                value={new Date().toISOString().slice(0, 10)}
+                {...register("enquireDate")}
+              />
+              <Textarea label="Notes" {...register("notes")} />
+            </div>
+          )}
+          <div className="flex justify-between mt-4">
+            <Button onClick={handlePrev} disabled={activeSection === 0}>
+              Previous
+            </Button>
+            {activeSection < 3 && <Button onClick={handleNext}>Next</Button>}
+            {activeSection === 3 && (
+              <Button type="submit" color="indigo">
+                Submit
+              </Button>
+            )}
+          </div>
+        </form>
       </CardBody>
-      <CardFooter></CardFooter>
     </Card>
+  );
+}
+
+function FormGroup({ activeSection, handleTabClick }) {
+  const tabLabels = [
+    "PERSONAL DETAILS",
+    "COMMUNICATION DETAILS",
+    "FOLLOWUP DETAILS",
+    "HOW YOU KNOW US",
+  ];
+  return (
+    <div className=" grid grid-cols-1 sm:grid-cols-4 mb-3">
+      {tabLabels.map((label, index) => (
+        <Button
+          key={index}
+          className="rounded-none shadow-sm"
+          onClick={() => handleTabClick(index)}
+          variant={index === activeSection ? "filled" : "text"}
+          size="sm"
+          fullWidth
+        >
+          {label}
+        </Button>
+      ))}
+    </div>
   );
 }
 
