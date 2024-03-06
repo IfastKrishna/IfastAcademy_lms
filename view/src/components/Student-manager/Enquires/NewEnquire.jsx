@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardBody,
@@ -9,6 +9,7 @@ import {
 } from "@material-tailwind/react";
 import Select from "react-select";
 import { useForm, Controller } from "react-hook-form";
+import api from "../../../utils/Api/api";
 
 const genderOptions = [
   { value: "male", label: "Male" },
@@ -18,9 +19,9 @@ const genderOptions = [
 
 function NewEnquire() {
   const [activeSection, setActiveSection] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const {
-    register,
     handleSubmit,
     control,
     formState: { errors },
@@ -28,6 +29,7 @@ function NewEnquire() {
 
   const createNewEnquire = (data) => {
     console.log(data);
+    // api.post("")
   };
 
   const handleTabClick = (index) => {
@@ -81,7 +83,6 @@ function NewEnquire() {
                     options={genderOptions}
                     placeholder="Gender"
                     {...field}
-                    required
                   />
                 )}
               />
@@ -109,137 +110,229 @@ function NewEnquire() {
               <Controller
                 control={control}
                 name="birthDate"
-                required={true}
                 render={({ field }) => (
-                  <Input label="Birth Date" type="date" {...field} />
+                  <Input label="Birth Date" type="date" {...field} required />
                 )}
               />
             </div>
           )}
           {activeSection === 1 && (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <Input
-                label="Primary Mobile No"
-                {...register("primaryPhone", { required: true })}
-                required
+              <Controller
+                control={control}
+                name="primaryPhone"
+                render={({ field }) => (
+                  <Input label="Primary Mobile No" {...field} required />
+                )}
               />
-              <Input
-                label="Secondary Mobile No"
-                {...register("secondaryPhone")}
+              <Controller
+                control={control}
+                name="secondaryPhone"
+                render={({ field }) => (
+                  <Input label="Secondary Mobile No" {...field} />
+                )}
               />
-              <Input
-                label="Primary Email"
-                required
-                type="email"
-                {...register("primaryEmail")}
+              <Controller
+                control={control}
+                name="primaryEmail"
+                render={({ field }) => (
+                  <Input
+                    label="Primary Email"
+                    type="email"
+                    {...field}
+                    required
+                  />
+                )}
               />
-              <Input label="Secondary Email" {...register("secondaryEmail")} />
-              <Textarea
-                label="Current Address"
-                {...register("currentAddress")}
+              <Controller
+                control={control}
+                name="secondaryEmail"
+                render={({ field }) => (
+                  <Input label="Secondary Email" {...field} />
+                )}
               />
-              <Textarea
-                label="Permanent Address"
-                {...register("permanentAddress")}
+              <Controller
+                control={control}
+                name="currentAddress"
+                render={({ field }) => (
+                  <Textarea label="Current Address" {...field} />
+                )}
               />
-              <Input
-                label="Pincode"
-                type="tel"
-                {...register("currentPincode")}
+              <Controller
+                control={control}
+                name="permanentAddress"
+                render={({ field }) => (
+                  <Textarea label="Permanent Address" {...field} />
+                )}
               />
-              <Input
-                label="Pincode"
-                type="tel"
-                {...register("permanentPincode")}
+              <Controller
+                control={control}
+                name="currentPincode"
+                render={({ field }) => (
+                  <Input label="Pincode" type="tel" {...field} />
+                )}
+              />
+              <Controller
+                control={control}
+                name="permanentPincode"
+                render={({ field }) => (
+                  <Input label="Pincode" type="tel" {...field} />
+                )}
               />
             </div>
           )}
           {activeSection === 2 && (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <Select
-                options={[
-                  { label: "course1", value: "course1" },
-                  { label: "course2", value: "course2" },
-                ]}
-                {...register("courses")}
-                isMulti
-                placeholder="Courses"
-                className="mb-3 rounded-md"
+              <Controller
+                control={control}
+                name="courses"
+                render={({ field }) => (
+                  <Select
+                    className="mb-3 rounded-md"
+                    options={[
+                      { label: "Course", value: "course1" },
+                      { label: "Course", value: "course2" },
+                    ]}
+                    {...field}
+                    placeholder="Courses"
+                    isMulti
+                  />
+                )}
               />
-              <Select
-                options={[
-                  { label: "course1", value: "course1" },
-                  { label: "course2", value: "course2" },
-                ]}
-                {...register("packages")}
-                placeholder="Package"
-                isMulti
-                className="mb-3 rounded-md"
+
+              <Controller
+                control={control}
+                name="packages"
+                render={({ field }) => (
+                  <Select
+                    className="mb-3 rounded-md"
+                    options={[
+                      { label: "Pakacge", value: "package" },
+                      { label: "Pakacge2", value: "pakacge2" },
+                    ]}
+                    {...field}
+                    placeholder="Package"
+                    isMulti
+                  />
+                )}
               />
-              <Select
-                options={[
-                  { label: "YES", value: "YES" },
-                  { label: "No", value: "No" },
-                ]}
-                placeholder="Requires Demo Lacture"
-                {...register("requiredDemoLecture")}
-                className="mb-3 rounded-md"
+
+              <Controller
+                control={control}
+                name="requiredDemoLecture"
+                render={({ field }) => (
+                  <Select
+                    className="mb-3 rounded-md"
+                    options={[
+                      { label: "YES", value: "YES" },
+                      { label: "No", value: "No" },
+                    ]}
+                    {...field}
+                    placeholder="Requires Demo Lacture"
+                  />
+                )}
               />
-              <Select
-                options={[
-                  { label: "course1", value: "course1" },
-                  { label: "course2", value: "course2" },
-                  { label: "course3", value: "course3" },
-                ]}
-                {...register("interestLevel")}
-                placeholder="Interest Level"
-                isMulti
-                className="mb-3 rounded-md"
+
+              <Controller
+                control={control}
+                name="interestLevel"
+                render={({ field }) => (
+                  <Select
+                    options={[
+                      { label: "HOT", value: "HOT" },
+                      { label: "WARM", value: "WARM" },
+                      { label: "COULD", value: "COULD" },
+                    ]}
+                    {...field}
+                    placeholder="Interest Level"
+                    className="mb-3 rounded-md"
+                  />
+                )}
               />
-              <Input
-                label="Next follow-Up Date"
-                type="date"
-                {...register("followupDate")}
+
+              <Controller
+                control={control}
+                name="followupDate"
+                render={({ field }) => (
+                  <Input type="date" label="Next follow-Up Date" {...field} />
+                )}
               />
-              <Textarea
-                label="Follow-Up Details"
-                {...register("followupDetails")}
+              <Controller
+                control={control}
+                name="followupDetails"
+                render={({ field }) => (
+                  <Textarea label="Follow-Up Details" {...field} />
+                )}
               />
             </div>
           )}
+
           {activeSection === 3 && (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <Select
-                options={[
-                  { value: "youtube", label: "Youtube" },
-                  { value: "google", label: "Google" },
-                  { value: "facebook", label: "Facebook" },
-                ]}
-                placeholder="Lead Source"
-                {...register("leadSource")}
+              <Controller
+                control={control}
+                name="leadSource"
+                render={({ field }) => (
+                  <Select
+                    options={[
+                      { value: "youtube", label: "Youtube" },
+                      { value: "google", label: "Google" },
+                      { value: "facebook", label: "Facebook" },
+                    ]}
+                    placeholder="Lead Source"
+                    {...field}
+                  />
+                )}
               />
-              <Input type="text" label="Ref Name" {...register("refName")} />
-              <Select
-                options={[{ label: "Krishna", value: "krishna" }]}
-                placeholder="Assign To"
-                {...register("assignTo")}
+              <Controller
+                control={control}
+                name="refName"
+                render={({ field }) => (
+                  <Input type="text" label="Ref Name" {...field} />
+                )}
               />
-              <Input
-                label="Enquire Date"
-                type="date"
-                value={new Date().toISOString().slice(0, 10)}
-                {...register("enquireDate")}
+              <Controller
+                control={control}
+                name="assignTo"
+                render={({ field }) => (
+                  <Select
+                    options={[{ label: "Krishna", value: "krishna" }]}
+                    placeholder="Assign To"
+                    {...field}
+                  />
+                )}
               />
-              <Textarea label="Notes" {...register("notes")} />
+              <Controller
+                control={control}
+                name="enquireDate"
+                defaultValue={new Date().toISOString().slice(0, 10)}
+                render={({ field }) => (
+                  <Input type="date" label="Enquire Date" {...field} />
+                )}
+              />
+
+              <Controller
+                control={control}
+                name="notes"
+                render={({ field }) => <Textarea label="Notes" {...field} />}
+              />
             </div>
           )}
           <div className="flex justify-between mt-4">
-            <Button onClick={handlePrev} disabled={activeSection === 0}>
+            <Button
+              onClick={handlePrev}
+              size="sm"
+              disabled={activeSection === 0}
+            >
               Previous
             </Button>
-            {activeSection < 3 && <Button onClick={handleNext}>Next</Button>}
+            {activeSection < 3 && (
+              <Button size="sm" onClick={handleNext}>
+                Next
+              </Button>
+            )}
             {activeSection === 3 && (
-              <Button type="submit" color="indigo">
+              <Button type="submit" color="indigo" loading>
                 Submit
               </Button>
             )}

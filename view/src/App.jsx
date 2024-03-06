@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Api from "./utils/Api/api";
 import { login } from "./store/features/authSlice";
+import { Spinner } from "@material-tailwind/react";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -30,9 +31,9 @@ const App = () => {
       <Toaster />
     </div>
   ) : (
-    <>
-      <p>loading</p>
-    </>
+    <div className="w-full h-screen flex items-center justify-center">
+      <Spinner className="h-8 w-8" color="indigo" />
+    </div>
   );
 };
 
