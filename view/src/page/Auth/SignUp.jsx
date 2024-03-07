@@ -11,7 +11,6 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Api from "../../utils/Api/api";
 import toast from "react-hot-toast";
-import { handleError } from "../../utils/hadleError";
 
 export default function SingUp() {
   const {
@@ -30,7 +29,7 @@ export default function SingUp() {
       setLoading(false);
       navigate("/login");
     } catch (err) {
-      toast.error(handleError(err.response.data));
+      toast.error(err.response.data.message);
       setLoading(false);
     }
   };

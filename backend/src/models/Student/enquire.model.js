@@ -23,8 +23,14 @@ const enquireSchema = new Schema(
     middleName: String,
     lastName: String,
     gender: {
-      type: String,
-      required: true,
+      value: {
+        type: String,
+        required: true,
+      },
+      label: {
+        type: String,
+        required: true,
+      },
     },
     collegeOrSchool: String,
     qualification: String,
@@ -43,46 +49,87 @@ const enquireSchema = new Schema(
       required: true,
     },
     secondaryEmail: String,
-    currentAddress: {
-      type: String,
-    },
+    currentAddress: String,
     permanentAddress: String,
     permanentPincode: Number,
     currentPincode: Number,
     courses: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Course",
+        value: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Course",
+        },
+        label: {
+          type: String,
+          required: true,
+        },
       },
     ],
     packages: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Package",
+        value: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Package",
+        },
+        label: {
+          type: String,
+          required: true,
+        },
       },
     ],
-    interestLevel: {
-      type: String,
-      enum: ["HOT", "WARM", "COLD"],
-    },
-    requiredDemoLecture: {
-      type: String,
-      enum: ["YES", "NO"],
-    },
+    interestLevel: [
+      {
+        label: {
+          type: String,
+          required: true,
+        },
+        value: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
+    requiredDemoLecture: [
+      {
+        label: {
+          type: String,
+          required: true,
+        },
+        value: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
     followups: [followupSchema],
-    leadSource: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "LeadSource",
-    },
+    leadSource: [
+      {
+        value: {
+          type: String,
+          required: true,
+        },
+        label: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
     refName: String,
     enquireDate: {
       type: Date,
       required: true,
     },
     assignTo: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Employee",
+      value: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Employee",
+      },
+      label: {
+        type: String,
+        required: true,
+      },
     },
+
     notes: String,
   },
   { timestamps: true }
