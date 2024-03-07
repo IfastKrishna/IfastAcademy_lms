@@ -17,7 +17,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import LogoutWrapper from "./Logout";
+import LogoutWrapper from "../Logout";
 
 export default function StickyNavbar({ isSidebarOpen, setIsSidebarOpen }) {
   const { isAuthenticated, user } = useSelector((state) => state.auth);

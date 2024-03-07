@@ -41,9 +41,7 @@ function Followup() {
         </Typography>
         <hr className="mt-2" />
 
-        <CardBody>
-          
-        </CardBody>
+        <CardBody></CardBody>
       </Card>
     </div>
   );

@@ -9,7 +9,6 @@ import {
 } from "@material-tailwind/react";
 import Select from "react-select";
 import { useForm, Controller } from "react-hook-form";
-import api from "../../../utils/Api/api";
 
 const genderOptions = [
   { value: "male", label: "Male" },

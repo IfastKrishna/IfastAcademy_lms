@@ -21,8 +21,8 @@ import {
   Bars3Icon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-import { TABLE_HEAD, TABLE_ROWS } from "./enquiresData.js";
-import Table from "../../Table.jsx";
+import { TABLE_ROWS, TABLE_HEAD } from "../../data/enquires.sample.js";
+import Table from "../../components/Table.jsx";
 
 function Thead({ headers }) {
   return headers.map((head) => (
@@ -110,7 +110,7 @@ function Trow({ row }) {
 
 function Enquires() {
   return (
-    <Card className="rounded-sm">
+    <Card>
       <Typography className="px-3 py-0 border-l-2 border-l-black text-black">
         ENQUIRES
       </Typography>

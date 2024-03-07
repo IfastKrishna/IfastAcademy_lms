@@ -9,7 +9,7 @@ function Counselor() {
 
   const followData = [];
   return (
-    <div className="w-full p-2 md:p-5">
+    <div className="w-full">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         <DashbordCard
           label="Todys Admissions"

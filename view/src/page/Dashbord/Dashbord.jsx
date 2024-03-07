@@ -17,8 +17,7 @@ import {
   Bars3Icon,
 } from "@heroicons/react/24/outline";
 import { Table } from "../../components";
-import { TABLE_ROWS } from "../../components/Student-manager/Enquires/enquiresData";
-import { TABLE_HEAD } from "../../components/Student-manager/Enquires/enquiresData";
+import { TABLE_HEAD, TABLE_ROWS } from "../../data/enquires.sample.js";
 
 const Thead = ({ headers }) => {
   return headers.map((head) => (

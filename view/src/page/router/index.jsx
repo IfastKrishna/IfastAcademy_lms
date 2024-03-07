@@ -1,4 +1,4 @@
-import { LoginPage, SingUp, Home } from "../../page/index.js";
+import { LoginPage, SingUp } from "../../page/index.js";
 import App from "../../App.jsx";
 
 import {
@@ -11,10 +11,8 @@ import UnauthorizedPermission from "../Errors/UnAuthorized.jsx";
 import Profile from "../Users/Profile.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import Settings from "../Users/Settings/Settings.jsx";
-import { Followup, NewEnquire } from "../../components/index.js";
-import Enquires from "../Enquires/Enquires.jsx";
-import Counselor from "../Dashbord/Counselor.jsx";
-import Dashbord from "../Dashbord/Dashbord.jsx";
+import { Counselor, Dashbord } from "../Dashbord";
+import { Enquires, NewEnquire } from "../StudentManager";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
