@@ -2,10 +2,6 @@ import mongoose, { Schema } from "mongoose";
 
 // Define separate schemas for each key
 const followupModeSchema = new Schema({
-  value: {
-    type: String,
-    required: true,
-  },
   label: {
     type: String,
     required: true,
@@ -13,10 +9,6 @@ const followupModeSchema = new Schema({
 });
 
 const interestLevelSchema = new Schema({
-  value: {
-    type: String,
-    required: true,
-  },
   label: {
     type: String,
     required: true,
@@ -24,10 +16,6 @@ const interestLevelSchema = new Schema({
 });
 
 const leadSourceSchema = new Schema({
-  value: {
-    type: String,
-    required: true,
-  },
   label: {
     type: String,
     required: true,
@@ -35,10 +23,6 @@ const leadSourceSchema = new Schema({
 });
 
 const academicYearSchema = new Schema({
-  value: {
-    type: String,
-    required: true,
-  },
   label: {
     type: String,
     required: true,
@@ -60,11 +44,11 @@ const documentSchema = new Schema(
 );
 
 const batchSchema = new Schema({
-  value: {
+  label: {
     type: String,
     required: true,
   },
-  label: {
+  instuctor: {
     type: String,
     required: true,
   },
